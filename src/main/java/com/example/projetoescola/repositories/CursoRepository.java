@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.example.projetoescola.models.Curso;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -30,15 +29,20 @@ public class CursoRepository {
         // Buscar o curso existente pelo ID
         Curso cursoExistente = entityManager.find(Curso.class, id);
 
-        if (cursoExistente == null) {
-            throw new EntityNotFoundException("Curso com ID " + id + " não encontrado.");
-        }
-
         // Atualizar os dados do curso existente com os valores do novo curso
         cursoExistente.setNome(cursoAtualizado.getNome());
         cursoExistente.setCargaHoraria(cursoAtualizado.getCargaHoraria());
 
         // Retornar o curso atualizado
         return entityManager.merge(cursoExistente);
+    }
+
+    @Transactional
+    public void excluir(Long id) {
+        //Buscar o curso pelo ID
+        Curso curso = entityManager.find(Curso.class, id);
+
+        //Excluir o curso
+        entityManager.remove(curso);
     }
 }
