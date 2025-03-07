@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projetoescola.models.CategoriaCurso;
 import com.example.projetoescola.repositories.CategoriaCursoRepository;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -38,5 +40,11 @@ public class CategoriaCursoController {
     @DeleteMapping("/{id}")
     public void excluirPorId(@PathVariable Integer id){
         categoriaCursoRepository.excluirPorId(id);
+    }
+
+    //Rota para atualizar categorias com base no ID
+    @PutMapping("/{id}")
+    public CategoriaCurso editar(@PathVariable Integer id, @RequestBody CategoriaCurso categoriaCurso) {
+        return categoriaCursoRepository.editar(id, categoriaCurso);
     }
 }
