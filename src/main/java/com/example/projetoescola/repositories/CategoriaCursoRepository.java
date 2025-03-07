@@ -33,4 +33,17 @@ public class CategoriaCursoRepository {
 
         entityManager.remove(categoriaCurso);
     }
+
+    //Editar com base no ID
+    @Transactional
+    public CategoriaCurso editar(Integer id, CategoriaCurso categoriaCursoAtualizada){
+        //Buscar a categoria pelo ID
+        CategoriaCurso categoriaCursoExistente = entityManager.find(CategoriaCurso.class, id);
+
+        //Atualizar os dados
+        categoriaCursoExistente.setNome(categoriaCursoAtualizada.getNome());
+
+        //Retorna o curso atualizado
+        return entityManager.merge(categoriaCursoExistente);
+    }
 }
