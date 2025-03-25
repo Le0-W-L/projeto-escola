@@ -20,12 +20,12 @@ public class CursoController {
 
     @GetMapping()
     public List<Curso> obterTodos() {
-        return cursoRepository.obterTodos();
+        return cursoRepository.findAll();
     }
 
     @PostMapping()
     public Curso salvar(@RequestBody Curso curso) {
-        return cursoRepository.salvar(curso);
+        return cursoRepository.save(curso);
     }
 
 }
