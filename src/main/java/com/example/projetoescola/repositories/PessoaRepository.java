@@ -1,26 +1,9 @@
 package com.example.projetoescola.repositories;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.projetoescola.models.Pessoa;
 
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
+public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
-@Repository
-public class PessoaRepository {
-    @Autowired
-    EntityManager entityManager;
-
-    @Transactional
-    public Pessoa salvar(Pessoa pessoa) {
-        return entityManager.merge(pessoa);
-    }
-
-    public List<Pessoa> obterTodos() {
-        return entityManager.createQuery("FROM Pessoa", Pessoa.class).getResultList();
-    }
 }
