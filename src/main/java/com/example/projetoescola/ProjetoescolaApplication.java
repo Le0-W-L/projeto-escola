@@ -11,9 +11,11 @@ import org.springframework.context.annotation.Bean;
 import com.example.projetoescola.models.CategoriaCurso;
 import com.example.projetoescola.models.Curso;
 import com.example.projetoescola.models.Pessoa;
+import com.example.projetoescola.models.Professor;
 import com.example.projetoescola.repositories.CategoriaCursoRepository;
 import com.example.projetoescola.repositories.CursoRepository;
 import com.example.projetoescola.repositories.PessoaRepository;
+import com.example.projetoescola.repositories.ProfessorRepository;
 
 @SpringBootApplication
 public class ProjetoescolaApplication {
@@ -22,7 +24,8 @@ public class ProjetoescolaApplication {
 	public CommandLineRunner init(
 			@Autowired CursoRepository cursoRepository,
 			@Autowired CategoriaCursoRepository categoriaRepository,
-			@Autowired PessoaRepository pessoaRepository) {
+			@Autowired PessoaRepository pessoaRepository, 
+			@Autowired ProfessorRepository professorRepository) {
 		return args -> {
 			System.out.println("---- Inserindo Cursos ----");
 			cursoRepository.save(
@@ -64,6 +67,26 @@ public class ProjetoescolaApplication {
 			c1.addPessoa(pessoa2);
 
 			cursoRepository.save(c1);
+
+			System.out.println("---- Adicionando os Professores ----");
+			professorRepository.save(new Professor(null, "Joao1", 2001));	
+			professorRepository.save(new Professor(null, "Joao2", 2002));	
+			professorRepository.save(new Professor(null, "Joao3", 2003));	
+			professorRepository.save(new Professor(null, "Joao4", 2004));	
+			professorRepository.save(new Professor(null, "Joao5", 2005));	
+			professorRepository.save(new Professor(null, "Joao6", 2006));
+			
+			System.out.println("---- Salário Maior que X ----");
+			List<Professor> professors = professorRepository.findBySalarioGreaterThan(2003);
+			professors.forEach(System.out::println);
+
+			System.out.println("---- Salário Menor ou Igual a X ----");
+			professors = professorRepository.findBySalarioLessThanEqual(2003);
+			professors.forEach(System.out::println);
+
+			System.out.println("---- Nome do Professor ----");
+			professors = professorRepository.findByNomeLike("Joao%");
+			professors.forEach(System.out::println);
 		};
 	}
 
