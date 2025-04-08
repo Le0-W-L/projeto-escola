@@ -60,7 +60,7 @@ public class Filme {
 
     @Override
     public String toString() {
-        return "Filme [id=" + id + ", titulo=" + titulo + ", duracao=" + duracao + ", diretor=" + diretor + "]";
+        return "Filme [id=" + id + ", titulo=" + titulo + ", duracao=" + duracao + "]";
     }
 
 }
