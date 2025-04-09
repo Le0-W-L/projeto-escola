@@ -1,5 +1,8 @@
 package com.example.projetoescola.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,18 @@ public class CursoServiceImpl implements CursoService {
         c.setCategoriaCurso(categoriaCurso);
         c = cursoRepository.save(c);
         return new CursoDTO(c.getId(), c.getNome());
+    }
+
+    @Override
+    public List<CursoDTO> obterTodos() {
+        List<Curso> cursos = cursoRepository.findAll();
+        // List<CursoDTO> listCursoDTO = new ArrayList<>();
+        // for (Curso c : cursos) {
+        // listCursoDTO.add(new CursoDTO(c.getId(), c.getNome()));
+        // }
+        // return listCursoDTO;
+
+        return cursos.stream().map(c -> new CursoDTO(c.getId(), c.getNome())).toList();
     }
 
 }

@@ -22,10 +22,10 @@ public class CursoController {
     @Autowired
     private CursoService cursoService;
 
-    // @GetMapping()
-    // public List<Curso> obterTodos() {
-    // return cursoRepository.findAll();
-    // }
+    @GetMapping()
+    public List<CursoDTO> obterTodos() {
+        return cursoService.obterTodos();
+    }
 
     @PostMapping()
     public CursoDTO salvar(@RequestBody CursoRequestDTO curso) {
