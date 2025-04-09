@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.projetoescola.dtos.CursoDTO;
+import com.example.projetoescola.dtos.CursoRequestDTO;
 import com.example.projetoescola.models.Curso;
 import com.example.projetoescola.repositories.CursoRepository;
+import com.example.projetoescola.services.CursoService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,16 +20,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/cursos")
 public class CursoController {
     @Autowired
-    private CursoRepository cursoRepository;
+    private CursoService cursoService;
 
-    @GetMapping()
-    public List<Curso> obterTodos() {
-        return cursoRepository.findAll();
-    }
+    // @GetMapping()
+    // public List<Curso> obterTodos() {
+    // return cursoRepository.findAll();
+    // }
 
     @PostMapping()
-    public Curso salvar(@RequestBody Curso curso) {
-        return cursoRepository.save(curso);
+    public CursoDTO salvar(@RequestBody CursoRequestDTO curso) {
+        return cursoService.salvar(curso);
     }
 
 }
