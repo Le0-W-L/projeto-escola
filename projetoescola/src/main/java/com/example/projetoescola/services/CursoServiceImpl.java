@@ -18,69 +18,69 @@ import com.example.projetoescola.repositories.CursoRepository;
 
 @Service
 public class CursoServiceImpl implements CursoService {
-    @Autowired
-    private CursoRepository cursoRepository;
-    @Autowired
-    private CategoriaCursoRepository categoriaCursoRepository;
+        @Autowired
+        private CursoRepository cursoRepository;
+        @Autowired
+        private CategoriaCursoRepository categoriaCursoRepository;
 
-    @Override
-    public CursoDTO salvar(CursoRequestDTO curso) {
-        CategoriaCurso categoriaCurso = categoriaCursoRepository.findById(
-                curso.getCategoriaCursoId())
-                .orElseThrow(() -> new RegraNegocioException("Categoria não encontrada"));
+        @Override
+        public CursoDTO salvar(CursoRequestDTO curso) {
+                CategoriaCurso categoriaCurso = categoriaCursoRepository.findById(
+                                curso.getCategoriaCursoId())
+                                .orElseThrow(() -> new RegraNegocioException("Categoria não encontrada"));
 
-        Curso c = new Curso(null,
-                curso.getNome(),
-                curso.getCargaHoraria());
-        c.setCategoriaCurso(categoriaCurso);
-        c = cursoRepository.save(c);
-        return new CursoDTO(c.getId(), c.getNome());
-    }
+                Curso c = new Curso(null,
+                                curso.getNome(),
+                                curso.getCargaHoraria());
+                c.setCategoriaCurso(categoriaCurso);
+                c = cursoRepository.save(c);
+                return new CursoDTO(c.getId(), c.getNome());
+        }
 
-    @Override
-    public List<CursoDTO> obterTodos() {
-        List<Curso> cursos = cursoRepository.findAll();
-        return cursos.stream().map(c ->
-        // new CursoDTO(c.getId(), c.getNome())
-        CursoDTO.builder()
-                .id(c.getId())
-                .nome(c.getNome())
-                .build()).toList();
-    }
+        @Override
+        public List<CursoDTO> obterTodos() {
+                List<Curso> cursos = cursoRepository.findAll();
+                return cursos.stream().map(c ->
+                // new CursoDTO(c.getId(), c.getNome())
+                CursoDTO.builder()
+                                .id(c.getId())
+                                .nome(c.getNome())
+                                .build()).toList();
+        }
 
-    @Override
-    public void remover(Long id) {
-        cursoRepository.deleteById(id);
-    }
+        @Override
+        public void remover(Long id) {
+                cursoRepository.deleteById(id);
+        }
 
-    @Override
-    public void editar(Long id, CursoRequestDTO dto) {
-        Curso curso = cursoRepository.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Código curso não encontrado."));
+        @Override
+        public void editar(Long id, CursoRequestDTO dto) {
+                Curso curso = cursoRepository.findById(id)
+                                .orElseThrow(() -> new RegraNegocioException("Código curso não encontrado."));
 
-        CategoriaCurso categoriaCurso = categoriaCursoRepository.findById(dto.getCategoriaCursoId())
-                .orElseThrow(() -> new RegraNegocioException("Categoria não encontrado."));
+                CategoriaCurso categoriaCurso = categoriaCursoRepository.findById(dto.getCategoriaCursoId())
+                                .orElseThrow(() -> new RegraNegocioException("Categoria não encontrado."));
 
-        curso.setNome(dto.getNome());
-        curso.setCargaHoraria(dto.getCargaHoraria());
-        curso.setCategoriaCurso(categoriaCurso);
-        cursoRepository.save(curso);
-    }
+                curso.setNome(dto.getNome());
+                curso.setCargaHoraria(dto.getCargaHoraria());
+                curso.setCategoriaCurso(categoriaCurso);
+                cursoRepository.save(curso);
+        }
 
-    @Override
-    public DadosCursoDTO obterPorId(Long id) {
-        Curso curso = cursoRepository.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Curso não encontrado"));
+        @Override
+        public DadosCursoDTO obterPorId(Long id) {
+                Curso curso = cursoRepository.findById(id)
+                                .orElseThrow(() -> new RegraNegocioException("Curso não encontrado"));
 
-        return DadosCursoDTO.builder()
-                .id(curso.getId())
-                .nome(curso.getNome())
-                .cargaHoraria(curso.getCargaHoraria())
-                .categoria(CategoriaCursoDTO.builder()
-                        .id(curso.getCategoriaCurso().getId())
-                        .nome(curso.getCategoriaCurso().getNome())
-                        .build())
-                .build();
-    }
+                return DadosCursoDTO.builder()
+                                .id(curso.getId())
+                                .nome(curso.getNome())
+                                .cargaHoraria(curso.getCargaHoraria())
+                                .categoria(CategoriaCursoDTO.builder()
+                                                .id(curso.getCategoriaCurso().getId())
+                                                .nome(curso.getCategoriaCurso().getNome())
+                                                .build())
+                                .build();
+        }
 
 }
