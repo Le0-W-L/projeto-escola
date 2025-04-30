@@ -13,6 +13,8 @@ import com.example.projetoescola.models.Curso;
 import com.example.projetoescola.repositories.CursoRepository;
 import com.example.projetoescola.services.CursoService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +47,7 @@ public class CursoController {
     }
 
     @PostMapping()
-    public CursoDTO salvar(@RequestBody CursoRequestDTO curso) {
+    public CursoDTO salvar(@Valid @RequestBody CursoRequestDTO curso) {
         return cursoService.salvar(curso);
     }
 

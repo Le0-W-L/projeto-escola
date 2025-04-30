@@ -26,16 +26,16 @@ public class ProjetoescolaApplication {
 		return args -> {
 			System.out.println("---- Inserindo Cursos ----");
 			cursoRepository.save(
-					new Curso(null, "teste", 2000));
+					new Curso(null, "curso01", 2000));
 			cursoRepository.save(
-					new Curso(null, "teste2", 2050));
+					new Curso(null, "curso02", 2050));
 
 			System.out.println("---- Cursos por Nome ----");
-			List<Curso> cursos = cursoRepository.findByNome("teste");
+			List<Curso> cursos = cursoRepository.findByNome("curso");
 			cursos.forEach(System.out::println);
 
 			System.out.println("---- Cursos por Nome LIKE ----");
-			cursos = cursoRepository.findByNomeLike("t%");
+			cursos = cursoRepository.findByNomeLike("c%");
 			cursos.forEach(System.out::println);
 
 			System.out.println("---- Listando Cursos ----");

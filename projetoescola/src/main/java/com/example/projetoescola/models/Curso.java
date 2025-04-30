@@ -2,6 +2,8 @@ package com.example.projetoescola.models;
 
 import java.util.List;
 
+import com.example.projetoescola.configs.validations.NomeCursoValidation;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,14 +14,21 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "O nome do curso não pode ser vazio")
     @Column(nullable = false, length = 200)
+    @NomeCursoValidation(message = "O nome do curso deve seguir o padrão: 5 letras minúsculas seguidas de 2 números.")
     private String nome;
+
+    @Min(value = 1500, message = "A carga horária deve ser maior ou igual a 1500.")
     @Column(nullable = false)
     private Integer cargaHoraria;
 

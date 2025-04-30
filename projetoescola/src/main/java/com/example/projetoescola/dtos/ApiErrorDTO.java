@@ -13,4 +13,8 @@ public class ApiErrorDTO {
         this.errors = Arrays.asList(mensagem);
     }
 
+    public ApiErrorDTO(List<String> mensagens) {
+        this.errors = mensagens;
+    }
+
 }
