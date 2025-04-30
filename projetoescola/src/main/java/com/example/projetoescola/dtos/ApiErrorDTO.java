@@ -16,5 +16,4 @@ public class ApiErrorDTO {
     public ApiErrorDTO(List<String> mensagens) {
         this.errors = mensagens;
     }
-
 }

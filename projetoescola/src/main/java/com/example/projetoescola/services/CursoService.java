@@ -16,5 +16,4 @@ public interface CursoService {
     void remover(Long id);
 
     void editar(Long id, CursoRequestDTO dto);
-
 }
